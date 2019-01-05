@@ -1,0 +1,1 @@
+# My conky config CPU 12 core

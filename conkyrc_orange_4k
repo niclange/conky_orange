@@ -1,0 +1,139 @@
+conky.config = {
+--==============================================================================
+-- 2017/10/25
+-- this is for conky version 1.1
+-- converted by me using lua convert tool
+-- 
+--                               conkyrc_orange
+
+--  author  : SLK
+--  version : v2011011601
+--  license : Distributed under the terms of GNU GPL version 2 or later
+--  modified: me
+--  version : v20171027
+--  notes   : works on 4k screen. uses conky conf newer >v1.1
+
+--==============================================================================
+
+	background = true,
+	update_interval = 1,
+
+	cpu_avg_samples = 2,
+	net_avg_samples = 2,
+	temperature_unit = 'celsius',
+
+	double_buffer = true,
+	no_buffers = true,
+	text_buffer_size = 2048,
+
+	gap_x = 10,
+	gap_y = 30,
+	minimum_width = 300, minimum_height = 450,
+	maximum_width = 300,
+	own_window = true,
+--## me change, added next 2 lines
+--## own_window_type override
+	own_window_type = 'normal',
+	own_window_argb_visual = true,
+	own_window_transparent = true,
+	own_window_hints = 'undecorated,sticky,skip_taskbar,skip_pager,below',
+	border_inner_margin = 0,
+	border_outer_margin = 0,
+	alignment = 'top_right',
+
+	draw_shades = false,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = false,
+
+	override_utf8_locale = true,
+	use_xft = true,
+	font = 'Ubuntu:size=7',
+	xftalpha = 0.5,
+	uppercase = false,
+
+	default_color = '#FFFFFF',
+	color1 = '#DDDDDD',
+	color2 = '#AAAAAA',
+	color3 = '#888888',
+	color4 = '#EF5A29',
+
+	lua_load = '~/.conky/conky_orange.lua',
+	lua_draw_hook_post = 'main',
+
+--${voffset 45}
+--${goto 95}${color3}${font ubuntu:size=32}${time %e}${color1}${voffset 0}${offset -60}${font ubuntu:size=10}${time %A}
+--${goto 85}${color2}${voffset -2}${font ubuntu:size=9}${time %b}${voffset -2} ${color3}${font ubuntu:size=12}${time %Y}${font}
+
+--${voffset 70}
+
+
+};
+
+conky.text = [[
+${voffset 112}
+${goto 133}${color4}${font ubuntu:size=18}${time %e}
+${goto 118}${color2}${voffset -6}${font ubuntu:size=9}${time %b}${voffset -1} ${color3}${font ubuntu:size=10}${time %Y}
+${goto 133}${color1}${voffset -2}${font ubuntu:size=10}${time %a}
+${font}
+
+${voffset 175}
+${goto 110}${font Ubuntu:bold:size=7}${color}${cpu} %
+${goto 110}${font Ubuntu:normal:size=7}${color1}${top name 1}${alignr}${top cpu 1}%
+${goto 110}${font Ubuntu:normal:size=7}${color2}${top name 2}${alignr}${top cpu 2}%
+${goto 110}${font Ubuntu:normal:size=7}${color3}${top name 3}${alignr}${top cpu 3}%
+${goto 110}${font Ubuntu:normal:size=7}${color3}${top name 4}${alignr}${top cpu 4}%
+${goto 110}${font Ubuntu:normal:size=7}${color3}${top name 5}${alignr}${top cpu 5}%
+${goto 110}${font Ubuntu:normal:size=7}${color}${freq_g}Ghz
+${goto 110}${voffset -10}${cpugraph 35,200 666666 666666}
+${goto 110}${voffset -8}${font Ubuntu:normal:size=7}${color}${running_threads} process 
+
+${voffset 8}
+${goto 110}${font Ubuntu:bold:size=7}${color}${mem} / ${memmax}
+${goto 110}${font Ubuntu:normal:size=7}${color1}${top_mem name 1}${alignr}${top_mem mem 1}%
+${goto 110}${font Ubuntu:normal:size=7}${color2}${top_mem name 2}${alignr}${top_mem mem 2}%
+${goto 110}${font Ubuntu:normal:size=7}${color3}${top_mem name 3}${alignr}${top_mem mem 3}%
+
+${voffset 12}
+${goto 110}${font Ubuntu:bold:size=7}${color}DISKS${goto 230}${font Ubuntu:bold:size=7}${color}SWAPP 
+
+${voffset 5}
+${goto 110}${diskiograph /dev/sda 30,200 666666 666666}${voffset -30}
+${voffset 10}
+${goto 110}${diskiograph /dev/sdb 30,200 666666 666666}${voffset -30}
+${voffset 10}
+${goto 110}${diskiograph /dev/sdc 30,200 666666 666666}${voffset -30}
+
+# added by me for temps
+${voffset 20}
+#${voffset 20}${goto 95}${font Ubuntu:bold:size=7}${color2}${voffset -2}${font Ubuntu:bold:size=7}${color3}${offset 0}Disk Issue ?${voffset 10}${font Ubuntu:bold:size=7}${color4}${apcupsd_linev}${font}
+${voffset 5}${goto 95}${font Ubuntu:bold:size=7}${color2}${voffset -2}${font Ubuntu:bold:size=7}${color3}${offset 0}CPU Temperature${goto 95}${font Ubuntu:bold:size=7}${alignr}${color4} ${exec sensors | grep -n 'temp1' | awk '{if (NR==2) print $2}'}${color3} / 70°C${font}
+${voffset 5}${goto 95}${font Ubuntu:bold:size=7}${color2}${voffset -2}${font Ubuntu:bold:size=7}${color3}${offset 0}CPU-1 Temperature${goto 95}${font Ubuntu:bold:size=7}${alignr}${color4} ${exec sensors | grep 'Core 0' | cut -c17-19 | grep -Po '\d+'}${color3}°F / 203°F${font}
+${voffset 5}${goto 95}${font Ubuntu:bold:size=7}${color2}${voffset -2}${font Ubuntu:bold:size=7}${color3}${offset 0}CPU-2 Temperature${goto 95}${font Ubuntu:bold:size=7}${alignr}${color4} ${exec sensors | grep 'Core 1' | cut -c17-19 | grep -Po '\d+'}${color3}°F / 203°F${font}
+${voffset 5}${goto 95}${font Ubuntu:bold:size=7}${color2}${voffset -2}${font Ubuntu:bold:size=7}${color3}${offset 0}CPU-3 Temperature${goto 95}${font Ubuntu:bold:size=7}${alignr}${color4} ${exec sensors | grep 'Core 2' | cut -c17-19 | grep -Po '\d+'}${color3}°F / 203°F${font}
+${voffset 5}${goto 95}${font Ubuntu:bold:size=7}${color2}${voffset -2}${font Ubuntu:bold:size=7}${color3}${offset 0}CPU-4 Temperature${goto 95}${font Ubuntu:bold:size=7}${alignr}${color4} ${exec sensors | grep 'Core 3' | cut -c17-19 | grep -Po '\d+'}${color3}°F / 203°F${font}
+${voffset 5}${goto 95}${font Ubuntu:bold:size=7}${color2}${voffset -2}${font Ubuntu:bold:size=7}${color3}${offset 0}HDD Temperature${goto 95}${font Ubuntu:bold:size=7}${alignr}${color4}${exec hddtemp /dev/sdb | awk '{print $4}'}${color3} / 85°C${font}
+${voffset 5}${goto 95}${font Ubuntu:bold:size=7}${color2}${voffset -2}${font Ubuntu:bold:size=7}${color3}${offset 0}HDD Temperature${goto 95}${font Ubuntu:bold:size=7}${alignr}${color4}${exec hddtemp /dev/sdc | awk '{print $4}'}${color3} / 77°C${font}
+${voffset 5}${goto 95}${font Ubuntu:bold:size=7}${color2}${voffset -2}${font Ubuntu:bold:size=7}${color3}${offset 0}GPU temp1 / max: ${goto 95}${font Ubuntu:bold:size=7}${alignr}${color4}${exec sensors | grep -m1 'temp1' | awk '{print $2}'}${color3} / 90°C${font}
+
+
+${voffset -10}
+${goto 95}${font Ubuntu:bold:size=7}${color}Network Status ${alignr}${color3}${addr enp24s0}
+${goto 95}${color3}Down: $color${downspeed enp24s0} ${color3}/s ${alignr}Up: $color4${upspeed enp24s0} ${color3}/s
+${goto 95}${color3}${downspeedgraph enp24s0 30,60 ${color2} 676f9d} ${goto 235}${color4}${upspeedgraph enp24s0 30,60 ${color4} 676f9d}$color
+#${color}Total: ${totaldown enp24s0} ${alignr}Total: ${totalup enp24s0}
+
+${voffset -25}
+${goto 95}${font Ubuntu:normal:size=7}${color3}ping time to Google:${alignr} ${font Ubuntu:normal:size=7}${color}${exec ping -c 1 -W 1 google.fr | grep -Eo "time=.+"  | cut -c6-14} 
+
+# ${voffset -20}
+# ${goto 80}${font Ubuntu:bold:size=18}${color3}NET${alignr}${color3}${font Ubuntu:bold:size=7}${color3}${alignr}${if_up eth1}eth ${addr eth1}${endif}${if_up wlan0}wifi ${addr wlan0}${endif}
+# ${goto 90}${font Ubuntu:bold:size=7}${color}open ports: ${alignr}${color4}${tcp_portmon 1 65535 count}
+# ${goto 90}${font Ubuntu:bold:size=7}${color}${offset 10}IP${alignr}DPORT
+# ${goto 90}${font Ubuntu:normal:size=7}${color1}${tcp_portmon 1 65535 rip  0}${alignr 1}${tcp_portmon 1 65535 rport  0}
+# ${goto 90}${font Ubuntu:normal:size=7}${color1}${tcp_portmon 1 65535 rip  1}${alignr 1}${tcp_portmon 1 65535 rport  1}
+# ${goto 90}${font Ubuntu:normal:size=7}${color1}${tcp_portmon 1 65535 rip  2}${alignr 1}${tcp_portmon 1 65535 rport  2}
+
+
+]];
+
