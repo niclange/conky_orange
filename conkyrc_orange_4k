@@ -85,7 +85,7 @@ ${goto 110}${font Ubuntu:normal:size=7}${color3}${top name 3}${alignr}${top cpu 
 ${goto 110}${font Ubuntu:normal:size=7}${color3}${top name 4}${alignr}${top cpu 4}%
 ${goto 110}${font Ubuntu:normal:size=7}${color3}${top name 5}${alignr}${top cpu 5}%
 ${goto 110}${font Ubuntu:normal:size=7}${color}${freq_g}Ghz
-${goto 110}${voffset -10}${cpugraph 35,200 666666 666666}
+${goto 110}${voffset -10}${cpugraph 30,200 666666 666666}
 ${goto 110}${voffset -8}${font Ubuntu:normal:size=7}${color}${running_threads} process 
 
 ${voffset 8}
